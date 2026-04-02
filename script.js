@@ -87,43 +87,42 @@ document.getElementById("secretBtn").onclick = ()=>{
 modal.onclick = ()=>{
   modal.style.display="none";
 };
-
-
 // SAKURA EFFECT (EMOJI VERSION)
 document.querySelectorAll(".gallery img").forEach(img => {
     img.onclick = () => {
         for(let i=0; i<30; i++){
             let petal = document.createElement("div");
             
-            // ၁။ CSS Class အစား Emoji ကို စာသားအဖြစ် ထည့်မယ်
-            petal.innerText = "♥"; 
+            // Emoji ထည့်မယ်
+            petal.innerText = "❤"; 
             
-            // ၂။ Emoji ဖြစ်တဲ့အတွက် ပုံစံပေါ်လွင်အောင် အခြေခံ Style လေးတွေ ထည့်မယ်
+            // အဝိုင်းပုံမဖြစ်အောင်နဲ့ လှုပ်ရှားဖို့ Style သတ်မှတ်မယ်
             petal.style.position = "fixed";
-            petal.style.top = "-20px"; // အပေါ်ကနေ စကျဖို့
-            petal.style.fontSize = (Math.random() * 20 + 10) + "px"; // အရွယ်အစားမျိုးစုံ
+            petal.style.top = "-20px";
             petal.style.left = Math.random() * window.innerWidth + "px";
-            petal.style.zIndex = "9999"; // အပေါ်ဆုံးမှာ ပေါ်ဖို့
-            petal.style.pointerEvents = "none"; // နှိပ်လို့မရအောင် (ပုံကို ပြန်နှိပ်လို့ရအောင်)
+            petal.style.fontSize = (Math.random() * 15 + 10) + "px"; // အရွယ်အစား 10px ကနေ 25px ကြား
+            petal.style.zIndex = "9999";
+            petal.style.pointerEvents = "none"; 
+            petal.style.userSelect = "none"; // စာသား Select လုပ်မရအောင်
             
-            // ၃။ Animation (CSS မလိုဘဲ JS နဲ့ ရိုးရိုးလေး ထည့်တာ)
+            // Animation အတွက် အချိန်သတ်မှတ်ချက်
             let duration = (3 + Math.random() * 3);
             petal.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
             
             document.body.appendChild(petal);
 
-            // စက္ကန့်ပိုင်းအတွင်း အောက်ကို ကြွေကျသွားအောင် လုပ်မယ်
+            // စက္ကန့်ပိုင်းအတွင်း အောက်ကို ကြွေကျစေမယ်
             setTimeout(() => {
-                petal.style.transform = `translateY(${window.innerHeight + 50}px) rotate(${Math.random() * 360}deg)`;
+                // အောက်ကိုကျရင်း ဘေးတိုက်ရွေ့အောင်နဲ့ လည်အောင်လုပ်မယ်
+                let drift = (Math.random() * 200) - 100; // ဘယ်ညာ ယိမ်းဖို့
+                petal.style.transform = `translate(${drift}px, ${window.innerHeight + 50}px) rotate(${Math.random() * 720}deg)`;
                 petal.style.opacity = "0";
             }, 100);
 
-            // ပြီးရင် ပြန်ဖျက်မယ်
+            // ပြီးရင် ဖျက်မယ်
             setTimeout(() => petal.remove(), duration * 1000);
         }
     }
 });
 
-    }
-  };
-});
+
