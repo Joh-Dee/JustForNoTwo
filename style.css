@@ -142,24 +142,17 @@ body{
   text-align:center;
 }
 
-/*  SAKURA (FIXED) */
-.sakura{
-  position:fixed;
-  top:-20px;
-  width:12px;
-  height:12px;
-  background:radial-gradient(circle, pink 40%, transparent 70%);
-  border-radius:50%;
-  opacity:0.9;
-  pointer-events:none;
-  animation:fall linear forwards;
+.sakura {
+    position: fixed;
+    top: -20px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fall linear forwards;
 }
 
-@keyframes fall{
-  0%{
-    transform:translateY(0) rotate(0deg);
-  }
-  100%{
-    transform:translateY(100vh) translateX(50px) rotate(360deg);
-  }
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
 }
