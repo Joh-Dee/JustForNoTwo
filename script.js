@@ -2,15 +2,15 @@
 const btn = document.getElementById("musicBtn");
 const music = document.getElementById("bgMusic");
 
-btn.innerText = "";
+btn.innerText = "🔊";
 
 btn.onclick = () => {
   if(music.paused){
     music.play();
-    btn.innerText = "";
+    btn.innerText = "🔇";
   }else{
     music.pause();
-    btn.innerText = "";
+    btn.innerText = "🔊";
   }
 };
 
@@ -87,42 +87,56 @@ document.getElementById("secretBtn").onclick = ()=>{
 modal.onclick = ()=>{
   modal.style.display="none";
 };
-// SAKURA EFFECT (EMOJI VERSION)
+// --- SAKURA EMOJI EFFECT (MODIFIED FOR RANDOM TIMING) ---
 document.querySelectorAll(".gallery img").forEach(img => {
-    img.onclick = () => {
-        for(let i=0; i<30; i++){
-            let petal = document.createElement("div");
-            
-            // Emoji ထည့်မယ်
-            petal.innerText = "❤"; 
-            
-            // အဝိုင်းပုံမဖြစ်အောင်နဲ့ လှုပ်ရှားဖို့ Style သတ်မှတ်မယ်
-            petal.style.position = "fixed";
-            petal.style.top = "-20px";
-            petal.style.left = Math.random() * window.innerWidth + "px";
-            petal.style.fontSize = (Math.random() * 15 + 10) + "px"; // အရွယ်အစား 10px ကနေ 25px ကြား
-            petal.style.zIndex = "9999";
-            petal.style.pointerEvents = "none"; 
-            petal.style.userSelect = "none"; // စာသား Select လုပ်မရအောင်
-            
-            // Animation အတွက် အချိန်သတ်မှတ်ချက်
-            let duration = (3 + Math.random() * 3);
-            petal.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
-            
-            document.body.appendChild(petal);
+  img.onclick = () => {
+    
+    const TOTAL_PETALS = 100; // စုစုပေါင်း အပွင့် ၁၀၀
+    const RANDOM_DURATION_WINDOW = 3000; // ၃ စက္ကန့်အတွင်း (3000ms)
 
-            // စက္ကန့်ပိုင်းအတွင်း အောက်ကို ကြွေကျစေမယ်
-            setTimeout(() => {
-                // အောက်ကိုကျရင်း ဘေးတိုက်ရွေ့အောင်နဲ့ လည်အောင်လုပ်မယ်
-                let drift = (Math.random() * 200) - 100; // ဘယ်ညာ ယိမ်းဖို့
-                petal.style.transform = `translate(${drift}px, ${window.innerHeight + 50}px) rotate(${Math.random() * 720}deg)`;
-                petal.style.opacity = "0";
-            }, 100);
+    for (let i = 0; i < TOTAL_PETALS; i++) {
+      
+      // ပွင့်ဖတ်တစ်ပွင့်ချင်းစီကို Random delay ပေးပြီး ဖန်တီးမယ်
+      let randomDelay = Math.random() * RANDOM_DURATION_WINDOW;
 
-            // ပြီးရင် ဖျက်မယ်
-            setTimeout(() => petal.remove(), duration * 1000);
-        }
+      setTimeout(() => {
+        const petal = document.createElement("div");
+        
+        // Emoji ကို တိုက်ရိုက်သုံးခြင်း
+        petal.innerText = "❤"; 
+        petal.className = "sakura-petal"; // CSS ထဲက class အသစ်ကိုသုံးမယ်
+
+        // Random Style များ
+        const startLeft = Math.random() * window.innerWidth;
+        const size = (Math.random() * 15 + 15) + "px"; // အရွယ်အစား ၁၅ ကနေ ၃၀ pixel ကြား
+        const duration = (3 + Math.random() * 3); // ၃ စက္ကန့် ကနေ ၆ စက္ကန့်ကြား Random ကျစေမယ်
+
+        Object.assign(petal.style, {
+          left: `${startLeft}px`,
+          fontSize: size,
+          top: "-50px", // မျက်နှာပြင်အပေါ်ဆုံးကနေ စကျဖို့
+          position: "fixed",
+          transition: `transform ${duration}s linear, opacity ${duration}s ease-in`,
+          zIndex: "9999",
+          pointerEvents: "none",
+          userSelect: "none"
+        });
+
+        document.body.appendChild(petal);
+
+        // Animation စတင်ခြင်း (CSS keyframes မလိုဘဲ JS နဲ့ အောက်ကိုချခြင်း)
+        setTimeout(() => {
+          const drift = (Math.random() * 200) - 100; // ဘယ်ညာ ယိမ်းနွဲ့ရန်
+          petal.style.transform = `translate(${drift}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`;
+          petal.style.opacity = "0";
+        }, 50);
+
+        // ပွင့်ဖတ်များကို ပြန်ဖျက်ရန်
+        setTimeout(() => {
+          petal.remove();
+        }, duration * 1000);
+
+      }, randomDelay); // ပွင့်ဖတ်တစ်ခုချင်းစီရဲ့ delay အချိန်
     }
+  };
 });
-
-
